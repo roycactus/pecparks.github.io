@@ -77,7 +77,7 @@ for (let park of parkMenu) {
 function populateModal(id) {
   prop = parkList.currentLayer._layers[id].feature.properties;
   modalHtml = document.querySelector(".modal-html");
-  html = `<img src="/parksite/image/sample.jpg" />`;
+  html = `<img src="/image/sample.jpg" />`;
   html = html + `<h3>${prop.name}</h3><h4>${prop.address} ${prop.ward}</h4>`;
   prop.summary == null
     ? (html = html + `<p>No summary</p><ul>`)
