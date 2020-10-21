@@ -1,4 +1,4 @@
-let mymap = L.map("mapid", { zoomControl: false }).setView([44.01, -77.36], 11);
+let mymap = L.map("mapid", { zoomControl: false }).setView([44.01, -77.23], 11);
 
 L.tileLayer(
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
@@ -21,19 +21,7 @@ loadGeojson = () => {
     .then((response) => response.json())
     .then(function (data) {
       parkList.geojson = data;
-      parkList.currentLayer = L.geoJSON(
-        parkList.geojson
-        // {onEachFeature: function (feature, layer) {
-        //   layer.bindPopup(feature.properties.name);
-        //   layer.on({
-        //     click: (e) => {
-        //       console.log(e.target);
-
-        //       L.DomEvent.stopPropagation(e);
-        //     },
-        //   });
-        // }}
-      ).addTo(mymap);
+      parkList.currentLayer = L.geoJSON(parkList.geojson); //.addTo(mymap);
     });
 };
 
