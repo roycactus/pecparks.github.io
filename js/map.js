@@ -1,4 +1,4 @@
-let mymap = L.map("mapid").setView([44.01, -77.36], 11);
+let mymap = L.map("mapid", { zoomControl: false }).setView([44.01, -77.36], 11);
 
 L.tileLayer(
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",

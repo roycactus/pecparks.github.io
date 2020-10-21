@@ -22,3 +22,7 @@ for (i = 0; i < parkLabels.length; i++) {
     }
   });
 }
+
+document.querySelector(".toggle-menu").addEventListener("click", function () {
+  document.querySelector(".park-menu-wrapper").classList.toggle("collapsed");
+});

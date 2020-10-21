@@ -52,47 +52,71 @@
   position: relative;
 }
 
+.main-content {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - var(--header));
+}
+
+/* MAP */
+
 .map-wrapper {
+  position: relative;
   width: 100%;
   height: 100%;
-  flex-shrink: 100;
+  flex: 0 1 auto;
 }
+
 #mapid {
   width: 100%;
   height: 100%;
 }
 
-.main-content {
-  display: flex;
+.toggle-menu {
   position: absolute;
-  width: 100%;
-  top: 0;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 600;
+  line-height: 40px;
+  font-size: 1.1rem;
+  top: 30px;
   left: 0;
-  z-index: 2000;
-  height: calc(100vh - var(--header));
+  writing-mode: vertical-rl;
+  width: 40px;
+  height: 120px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: var(--light-blue);
+  z-index: 2500;
 }
 
 /* Park Menu */
 
 .park-menu-wrapper {
-  padding: 10px;
-  overflow-y: auto;
   background-color: var(--light-blue);
   color: var(--dark);
-  box-shadow: 10px 0 6px -6px #777;
+  overflow: auto;
+  flex: 1 0 auto;
+  max-width: 100%;
 }
+
+.collapsed {
+  max-width: 0;
+}
+
 .park-menu-list {
-  width: max-content;
+  list-style: none;
 }
+
 .park-menu-header {
-  font-weight: 600;
   font-size: larger;
   text-align: center;
+  font-weight: 600;
 }
 .park-menu-header,
 .park-menu-label {
   display: block;
-  padding: 1rem;
+  padding: 1rem 2rem;
 }
 .park-menu-label {
   cursor: pointer;
@@ -104,9 +128,9 @@
 }
 .park-menu-label:after {
   content: "+";
-  width: 2em;
   text-align: right;
   float: right;
+  width: 2em;
 }
 .active:after {
   content: "-";
@@ -114,7 +138,6 @@
 .park-menu-list > li > ul {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.2s ease-out;
   background-color: var(--tan);
 }
 .park-menu-list > li > ul > li {
@@ -129,13 +152,13 @@
   display: none;
   flex-direction: column;
   position: relative;
+  margin: auto;
   background-color: var(--tan);
   color: var(--dark);
-  margin: auto;
   padding: 10px 10px 30px 10px;
   width: 500px;
   height: 100%;
-  box-shadow: 0 10px 6px -6px #777;
+  /* box-shadow: 0 10px 6px -6px #777; */
 }
 
 .modal-html {
@@ -145,9 +168,9 @@
 .modal-html > img {
   display: block;
   margin: auto;
+  object-fit: contain;
   max-height: 400px;
   max-width: 400px;
-  object-fit: contain;
 }
 
 .modal-html > ul > li::marker {
@@ -157,8 +180,6 @@
 .modal-wrapper > .nav {
   display: flex;
   justify-content: space-between;
-  /* position: absolute; */
-  /* bottom: 15px; */
   text-align: center;
 }
 
@@ -174,6 +195,7 @@
   position: absolute;
   background-color: transparent;
   border: none;
+  cursor: pointer;
   color: var(--dark);
   font-size: 1.7rem;
   top: 0;
@@ -189,6 +211,10 @@
 
   .main-content {
     height: 100vh;
+  }
+
+  .park-menu-wrapper {
+    padding: 0;
   }
 
   .modal-wrapper {
