@@ -1,7 +1,6 @@
 ## roycactus.github.io
 
-======
-My personal/project website.
+Personal project.
 
 ## Technology
 * CSS
