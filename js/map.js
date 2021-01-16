@@ -24,18 +24,24 @@ loadGeojson = () => {
       parkList.currentLayer = L.geoJSON(parkList.geojson); //.addTo(mymap);
     });
 };
-
 loadGeojson();
 
+const initMarker = L.marker([44.01, -77.23])
+  .addTo(mymap)
+  .bindPopup(
+    "Welcome to PEC Park Finder. Choose a catagory from the left menu to view location details. Have fun and respect our parks."
+  )
+  .openPopup();
+
 function filterMap(parkType) {
+  mymap.removeLayer(initMarker);
   mymap.removeLayer(parkList.currentLayer);
   parkList.currentLayer = L.geoJSON(parkList.geojson, {
     filter: (feature, layer) => {
-      if (feature.properties[parkType] === "TRUE") {
+      if (feature.properties[parkType]) {
         return true;
       }
     },
-    // onEachFeature: (feature, layer) => {
     onEachFeature: function (feature, layer) {
       layer.bindPopup(feature.properties.name);
       layer.on({
@@ -46,6 +52,12 @@ function filterMap(parkType) {
           mymap.invalidateSize();
           recenterMap();
           L.DomEvent.stopPropagation(e);
+        },
+        mouseover: (e) => {
+          e.target.openPopup();
+        },
+        mouseout: (e) => {
+          e.target.closePopup();
         },
       });
     },
@@ -65,7 +77,11 @@ for (let park of parkMenu) {
 function populateModal(id) {
   prop = parkList.currentLayer._layers[id].feature.properties;
   modalHtml = document.querySelector(".modal-html");
-  html = `<img src="/image/sample.jpg" />`;
+  if (prop.img === null || prop.img === "") {
+    html = `<img src="/image/${prop.name}.jpg" onerror="this.onerror=null;this.src='/image/park.jpg';" />`;
+  } else {
+    html = `<img src="/image/${prop.img}.jpg" onerror="this.onerror=null;this.src='/image/park.jpg';" />`;
+  }
   html = html + `<h3>${prop.name}</h3><h4>${prop.address} ${prop.ward}</h4>`;
   prop.summary == null
     ? (html = html + `<p>No summary</p><ul>`)
@@ -73,11 +89,21 @@ function populateModal(id) {
   // for (let url of prop.url) {
   //   html = html + `<li><a href="${url}"></li>`;
   // }
-  html = html + `</ul>`;
+
+  if (prop.url !== null) {
+    html = html + `<ul>`;
+    let urls = prop.url.split("\n");
+    for (let i = 0; i < urls.length; i = i + 2) {
+      html = html + `<li><a href="${urls[i + 1]}">${urls[i]}</a></li>`;
+    }
+    html = html + `</ul>`;
+  }
+
   modalHtml.innerHTML = html;
   parkList.currentLayer._layers[id].openPopup();
 }
 
+// navigation buttons
 let modalControls = document.querySelectorAll("[data-nav]");
 modalControls.forEach((control) => {
   control.addEventListener("click", function () {
@@ -97,7 +123,6 @@ modalControls.forEach((control) => {
           : (parkList.currentFeatureId =
               parkList.currentLayerArray[currentIndex + 1]);
         populateModal(parkList.currentFeatureId);
-
         break;
       case "prev":
         currentIndex - 1 < 0
