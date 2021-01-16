@@ -29,7 +29,7 @@ loadGeojson();
 const initMarker = L.marker([44.01, -77.23])
   .addTo(mymap)
   .bindPopup(
-    "Welcome to PEC Park Finder. Choose a catagory from the left menu to view location details. Have fun and respect our parks."
+    "Welcome to PEC Park Finder. This site is in early development by roycactus@gmail.com. Choose a catagory from the left menu to view location details."
   )
   .openPopup();
 
