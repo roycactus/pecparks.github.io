@@ -1,0 +1,68 @@
+const locationLinks = [
+  {
+    1201: [
+      "Heritage Conservation",
+      "https://www.thecounty.ca/residents/services/planning/heritage-conservation/",
+    ],
+    1202: [
+      "Quinte Conservation: Dams",
+      "https://www.quinteconservation.ca/en/watershed-management/dams.aspx",
+    ],
+    1203: [
+      "Quinte Conservation: Outdoor Spaces",
+      "https://www.quinteconservation.ca/en/outdoor-spaces/outdoor-spaces.aspx",
+    ],
+    1204: ["Ontario Parks", "https://www.ontarioparks.com/"],
+    1205: [
+      "The County: Parks",
+      "https://www.thecounty.ca/residents/services/parks-playgrounds/",
+    ],
+    1206: [
+      "The County: Launches",
+      "https://www.thecounty.ca/residents/services/marinas-boat-launches/",
+    ],
+    1207: [
+      "The County: Museums",
+      "https://www.thecounty.ca/residents/services/museums/",
+    ],
+    1208: ["", ""],
+    1209: ["", ""],
+    1210: ["", ""],
+    1211: ["", ""],
+    1212: ["", ""],
+    1213: ["", ""],
+    1214: ["", ""],
+  },
+];
+
+const amenity = [
+  "restoom",
+  "park",
+  "picnic",
+  "playground",
+  "beach",
+  "splashpad",
+  "dogpark",
+  "hike",
+  "cycle",
+  "launch",
+  "dock",
+  "fish",
+  "canoe",
+  "historic",
+  "heritage",
+  "cons",
+  "library",
+  "museum",
+  "cemetery",
+  "lighthouse",
+  "dam",
+  "skateboard",
+  "tennis",
+  "soccer",
+  "baseball",
+  "basketball",
+  "skate",
+  "ski",
+  "toboggan",
+];

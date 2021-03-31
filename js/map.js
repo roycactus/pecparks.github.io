@@ -20,11 +20,18 @@ loadGeojson = () => {
   fetch("parks.geojson")
     .then((response) => response.json())
     .then(function (data) {
-      parkList.geojson = data;
+      parkList.geojson = mapView(data);
       parkList.currentLayer = L.geoJSON(parkList.geojson); //.addTo(mymap);
     });
 };
 loadGeojson();
+
+mapView = (geojson) => {
+  for (i of geojson.features) {
+    i.geometry.coordinates = i.geometry.coordinates.map((x) => x - 1.1);
+  }
+  return geojson;
+};
 
 const initMarker = L.marker([44.01, -77.23])
   .addTo(mymap)
@@ -36,9 +43,11 @@ const initMarker = L.marker([44.01, -77.23])
 function filterMap(parkType) {
   mymap.removeLayer(initMarker);
   mymap.removeLayer(parkList.currentLayer);
+
   parkList.currentLayer = L.geoJSON(parkList.geojson, {
     filter: (feature, layer) => {
-      if (feature.properties[parkType]) {
+      // if (feature.properties[parkType]) {
+      if (feature.properties.amenities[amenity.indexOf(parkType)]) {
         return true;
       }
     },
@@ -56,9 +65,6 @@ function filterMap(parkType) {
         mouseover: (e) => {
           e.target.openPopup();
         },
-        mouseout: (e) => {
-          e.target.closePopup();
-        },
       });
     },
   });
@@ -71,10 +77,20 @@ const parkMenu = document.querySelectorAll("[data-from]");
 for (let park of parkMenu) {
   park.addEventListener("click", function () {
     filterMap(park.dataset.from);
+    // if (document.querySelector(".modal-wrapper").style.display !== "none") {
+    //   const firstLayer =
+    //     parkList.currentLayer._layers[parkList.currentLayerArray[0]]
+    //       ._leaflet_id;
+    //   populateModal(firstLayer);
+    // }
+    document.querySelector(".modal-wrapper").style.display = "none";
+    mymap.invalidateSize();
+    mymap.panTo(new L.LatLng(44.01, -77.23));
   });
 }
 
 function populateModal(id) {
+  console.log(id);
   prop = parkList.currentLayer._layers[id].feature.properties;
   modalHtml = document.querySelector(".modal-html");
   if (prop.img === null || prop.img === "") {
@@ -86,10 +102,18 @@ function populateModal(id) {
   prop.summary == null
     ? (html = html + `<p>No summary</p><ul>`)
     : (html = html + `<p>${prop.summary}</p><ul>`);
-  // for (let url of prop.url) {
-  //   html = html + `<li><a href="${url}"></li>`;
-  // }
 
+  //google link
+  html = html + `<ul>`;
+  let lng = parkList.currentLayer._layers[id].feature.geometry.coordinates[0];
+  let lat = parkList.currentLayer._layers[id].feature.geometry.coordinates[1];
+  let url = `http://www.google.com/maps/place/${lat},${lng}`;
+  html =
+    html +
+    `<li><a href="${url}" target="_blank">View Directions on Google Maps</a></li>`;
+  html = html + `</ul>`;
+
+  //links will have to be updated for new format
   if (prop.url !== null) {
     html = html + `<ul>`;
     let urls = prop.url.split("\n");

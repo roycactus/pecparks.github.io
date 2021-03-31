@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parks Editor</title>
+    <style>
+      .istrue {
+        background-color: green;
+        color: white;
+      }
+      #amenity-content {
+        font-size: 1.25em;
+      }
+      img {
+        max-height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="file-download">Download</button>
+    <button id="file-load">Read File</button>
+    <input type="file" id="file-input" />
+    <button id="json-add">New</button>
+    <button id="json-save">Save</button>
+    <button id="json-back">Back</button>
+    <div style="display: flex">
+      <pre id="file-content" style="width: 30%"></pre>
+      <pre id="location-content" style="margin-right: 3em"></pre>
+      <pre id="amenity-content" style="margin-right: 3em"></pre>
+      <pre id="image-content"></pre>
+    </div>
+
+    <script src="editor.js"></script>
+  </body>
+</html>
